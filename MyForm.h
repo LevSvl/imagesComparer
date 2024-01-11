@@ -335,12 +335,14 @@ namespace imagesComparer {
 
 
 		Model population[POPULATION_SIZE];
+		initRandom();
 		// Первая популяция формируется случайным образом
 		for (int i = 0; i < POPULATION_SIZE; i++) {
 			Model model = population[i];
 			model.x = randomize(0,xMax);
 			model.y = randomize(0,yMax);
 			model.relevantForCrossOver = false;
+			population[i] = model;
 		}
 		// Начало эволюции
 		for (int i = 0; i < NUMBER_OF_POPULATIONS; i++) {
@@ -356,14 +358,16 @@ namespace imagesComparer {
 		fitting(population, image1, image2);
 		merge_sort(population, POPULATION_SIZE);
 		
-		int xBest = population[0].x , yBest = population[0].y;
+		uint32 xBest = population[0].x , yBest = population[0].y;
 		double sum = population[0].fxy;
 
-
+		if (!sum) {
+			textBox1->Text = sum.ToString();
+			return;
+		}
 		// Вывод значения максимальной корреляции
 
-
-//		textBox1->Text = roundNumber(sum, 5).c_str();
+		//textBox1->Text = roundNumber(sum, 5).c_str();
 		textBox1->Text = sum.ToString();
 		
 		// Формирование итогового изображения из ТИ на основе максимальной корреляции

@@ -1,6 +1,6 @@
 #include "utils.h"
  
-bitset<16> concatBits(uint8 x, uint8 y) {
+bitset<32> concatBits(uint32 x, uint32 y) {
     /*
     Принимает на вход два 8 - ми битных числа
     и возвращает 16 битов, где первая половина - биты
@@ -11,49 +11,49 @@ bitset<16> concatBits(uint8 x, uint8 y) {
     result = x << 8;
     result |= y;
 
-    std::bitset<16> resultBits(result);
+    std::bitset<32> resultBits(result);
 
     return resultBits;
 }
 
-uint8 convertToGrey(uint8 a) {
+uint32 convertToGrey(uint32 a) {
     /*
     Конвертирует число а в число,
     соответствующее числу а в коде Грея
     */
-    uint8 result = a >> 1;
+    uint32 result = a >> 1;
     result ^= a;
     return result;
 }
 
-uint8 convertToBinary(uint8 a) {
+uint32 convertToBinary(uint32 a) {
     /*
     Конвертирует число а из кода Грея в число,
     соответствующее числу а в бинарном виде
     */
-    uint8 result = a;
+    uint32 result = a;
 
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 31; i++) {
         result ^= (result >> 1);
     }
 
     return result;
 }
 
-bitset<8> getBitset(uint8 a) {
+bitset<32> getBitset(uint32 a) {
     /*
     Возвращает двоичный код числа
     */
-    bitset<8> result(a);
+    bitset<32> result(a);
     return result;
 }
 
-uint8 bitSwap(uint8 a, uint8 b, int position) {
+uint32 bitSwap(uint32 a, uint32 b, int position) {
     /* 
     Возвращает c,у которого биты до splitPosition от a, после splitidx от b
     */
-    uint8 result,mask = 0;
-    for (int i = 0; i <= 8; i++) {
+    uint32 result,mask = 0;
+    for (int i = 0; i <= 32; i++) {
         if (i >= (8 - position))
             mask |= (1 << i);
     }
@@ -61,8 +61,8 @@ uint8 bitSwap(uint8 a, uint8 b, int position) {
     return result;
 }
 
-uint8 invertBit(uint8 a, int position) {
-    uint8 result = 0;
-    uint8 mask = 1 << (7 - position);
+uint32 invertBit(uint32 a, int position) {
+    uint32 result = 0;
+    uint32 mask = 1 << (32 - position);
     return result ^ mask;
 }

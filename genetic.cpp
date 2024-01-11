@@ -11,14 +11,16 @@ void fitting(Model* population, img* image1, img* image2) {
 		uint64 f1, f2;
 		double sum = 0.0;
 		Model model = population[n];
-		uint8 x = model.x, y = model.y;
+		uint32 x = model.x, y = model.y;
 
         int xMax = image1->width - image2->width;
         int yMax = image1->height - image2->height;
 
         for (int i = 0; i < image2->height; i++) {
             // Если x или y превышает допустимое значение для изображения
-            if (x > xMax || y > yMax)
+            if (x > xMax)
+                break;
+            if(y > yMax)
                 break;
             for (int j = 0; j < image2->width; j++) {
 
@@ -30,6 +32,8 @@ void fitting(Model* population, img* image1, img* image2) {
 
         sum = sum / (image2->height * image2->width);
         model.fxy = sum;
+
+        population[n] = model;
     }
 }
 
@@ -47,7 +51,7 @@ void cross_over(Model* population) {
 
     // Определяем переменную для записи случайного значения, 
     // В зависимости от которого будет приниматься решение о скрещивании
-    int luckyOrUnlucky, numberOfChild;
+    int luckyOrUnlucky, numberOfChild = 0;
     
     while (numberOfChild < POPULATION_SIZE) {
         // Перебираются только особи, прошедшие отбор
@@ -65,9 +69,9 @@ void cross_over(Model* population) {
             continue;
 
         // взаимный обмен битами двух координат (1-точечный кроссовер)
-        uint8 parentX = parent1.x, parentY = parent2.y;
+        uint32 parentX = parent1.x, parentY = parent2.y;
 
-        int splitIdx = randomize(1, 7); // произвольная точка разрыва
+        int splitIdx = randomize(1, 31); // произвольная точка разрыва
 
         // преобразование чисел в код Грея
         parentX = convertToGrey(parentX);
@@ -75,8 +79,8 @@ void cross_over(Model* population) {
 
         // скрещиванием битов координат родителей
         // создаются координаты для двух потомков
-        uint8 childx = convertToBinary(bitSwap(parentX, parentY,splitIdx));
-        uint8 childy = convertToBinary(bitSwap(parentY, parentX, splitIdx));
+        uint32 childx = convertToBinary(bitSwap(parentX, parentY,splitIdx));
+        uint32 childy = convertToBinary(bitSwap(parentY, parentX, splitIdx));
         
         // создание потомков
         Model child1,child2;
@@ -99,8 +103,8 @@ void mutation(Model* population) {
     int mutate_or_not = 0;
     for (int i = 0; i < POPULATION_SIZE; i++) {
         Model model = population[i];
-        uint8 x = convertToGrey(model.x);
-        uint8 y = convertToGrey(model.y);
+        uint32 x = convertToGrey(model.x);
+        uint32 y = convertToGrey(model.y);
 
         // для каждого бита мутация выполняется 
         // мутация с вероятностью PROBABILITY_OF_MUTATION
@@ -120,6 +124,8 @@ void mutation(Model* population) {
 
         model.x = convertToBinary(x);
         model.y = convertToBinary(y);
+
+        population[i] = model;
     }
 }
 

@@ -15,7 +15,7 @@
 using namespace std;
 
 
-#define uint8 unsigned int
+#define uint8 unsigned char
 #define uint16 unsigned short
 #define uint32 unsigned int
 #define uint64 unsigned long
@@ -26,8 +26,9 @@ struct img {
 	unsigned int* image;
 };
 
+void initRandom();
 
-uint8 randomize(unsigned int min, unsigned int max);
+uint32 randomize(unsigned int min, unsigned int max);
 
 double roundToNDecimalPlaces(double value, int decimalPlaces);
 

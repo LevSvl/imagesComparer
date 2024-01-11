@@ -2,14 +2,14 @@
 
 #include "utils.h"
 
-bitset<16> concatBits(uint8 x, uint8 y);
+bitset<32> concatBits(uint32 x, uint32 y);
 
-uint8 convertToGrey(uint8 a);
+uint32 convertToGrey(uint32 a);
 
-uint8 convertToBinary(uint8 a);
+uint32 convertToBinary(uint32 a);
 
-bitset<8> getBitset(uint8 a);
+bitset<32> getBitset(uint32 a);
 
-uint8 bitSwap(uint8 a, uint8 b, int position);
+uint32 bitSwap(uint32 a, uint32 b, int position);
 
-uint8 invertBit(uint8 a, int position);
+uint32 invertBit(uint32 a, int position);

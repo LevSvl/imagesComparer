@@ -1,8 +1,9 @@
 #include "utils.h"
-
-uint8 randomize(unsigned int min,unsigned int max) {
-	srand(time(NULL));
-	uint8 result = rand() % (max - min + 1);
+void initRandom() {
+    srand(time(NULL));
+}
+uint32 randomize(unsigned int min,unsigned int max) {
+	uint32 result = rand() % (max - min + 1);
 	return result;
 }
 
