@@ -54,7 +54,7 @@ uint32 bitSwap(uint32 a, uint32 b, int position) {
     */
     uint32 result,mask = 0;
     for (int i = 0; i <= 32; i++) {
-        if (i >= (8 - position))
+        if (i >= (32 - position))
             mask |= (1 << i);
     }
     result = (a & mask) | (b & (~mask));
