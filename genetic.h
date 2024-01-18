@@ -4,16 +4,15 @@
 #include "binary_operations.h"
 
 #define POPULATION_SIZE 500 // Размер популяции (должен быть кратным 100)
-#define NUMBER_OF_POPULATIONS 250 // Количество популяций
-#define PROBABILITY_OF_CROSSOVER 0.6 // Вероятность скрещивания
-#define PROBABILITY_OF_MUTATION 0.02 // Вероятность мутации
-const double L = 0.5;// Порог отсечения (Давление селекции)
+#define NUMBER_OF_POPULATIONS 300 // Количество популяций
+#define PROBABILITY_OF_CROSSOVER 0.7 // Вероятность скрещивания
+#define PROBABILITY_OF_MUTATION 0.06 // Вероятность мутации
+const double L = 0.2;// Порог отсечения (Давление селекции)
 
 
 struct Model
 {
 	uint32 x,y;
-	bitset<16> bitString;
 	double fxy;
 	bool relevantForCrossOver; // Коэфициент приспособленности
 };
